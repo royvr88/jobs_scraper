@@ -1,0 +1,22 @@
+--- Core ---
+
+pandas==2.2.3
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.9
+requests==2.32.3
+beautifulsoup4==4.12.3
+lxml==5.3.0
+
+--- Web scraping / browser automation ---
+
+playwright==1.48.0
+
+--- AI integration (via n8n external, not required locally) ---
+
+openai==1.50.2
+mistralai==1.0.2 # alleen nodig als je lokaal Mistral Cloud aanroept
+
+--- Utilities ---
+
+python-dotenv==1.0.1
+html5lib==1.1
