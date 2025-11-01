@@ -1,0 +1,144 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/xml_builder.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "1135fe66-272a-48eb-af7c-853dcda6e85a",
+      "name": "build job xml"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/xml_builder_relevant_jobs.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        460,
+        0
+      ],
+      "id": "89dbd666-d291-4936-8827-a88251c667f5",
+      "name": "build relevant job xml"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -40,
+        0
+      ],
+      "id": "0fceff94-dabd-4080-995d-6229f2d2efb4",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"sudo docker exec freshrss /usr/bin/php /var/www/FreshRSS/app/actualize_script.php\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        0
+      ],
+      "id": "d9b4ef19-31b7-4d0c-87ed-bbb35825d8f9",
+      "name": "Update FreshRSS",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/xml_builder_relevant_jobs_sam.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        920,
+        0
+      ],
+      "id": "04ea7360-4c1a-49d7-983b-cb23e436d998",
+      "name": "build relevant job sam"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/xml_builder_sam.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        700,
+        0
+      ],
+      "id": "eab1147f-6c10-4674-b989-68d6e65d6ccb",
+      "name": "build job xml1"
+    }
+  ],
+  "connections": {
+    "build job xml": {
+      "main": [
+        [
+          {
+            "node": "build relevant job xml",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build relevant job xml": {
+      "main": [
+        [
+          {
+            "node": "build job xml1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "build job xml",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build relevant job sam": {
+      "main": [
+        [
+          {
+            "node": "Update FreshRSS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build job xml1": {
+      "main": [
+        [
+          {
+            "node": "build relevant job sam",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "f023581cfe87a86662c56547e226a5e6af3cc08c9309e7f939d6919100849b9c"
+  }
+}

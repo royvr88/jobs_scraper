@@ -208,6 +208,8 @@ To start the orchestrator:
 n8n import:workflow --input=workflows/workflow_jobs_orchestrator.json
 n8n start
 ```
+> Optionally you can copy the whole contents of the JSON in a blank n8n sheet and use the cron of n8n.
+
 
 ---
 

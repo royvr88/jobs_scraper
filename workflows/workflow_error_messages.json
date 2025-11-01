@@ -1,0 +1,82 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"flow\": \"Flow\",\n  \"node\": \"Scrape Zwolle\",\n  \"error\": \"\",\n  \"timestamp\": \"={{ new Date().toISOString() }}\"\n}"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -340,
+        -60
+      ],
+      "id": "0d88600b-f31a-49e0-aed4-06ae32f7b2e9",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "chatId": "0",
+        "text": "=*Error!*\n\n*Flownaam:* {{ $json.flow }}\n*Node:* {{ $json.node }}\n*Timestamp:* {{ $json.timestamp }}\n\n*Fout (deel {{ $json.chunkIndex }} van {{ $json.chunkTotal }})):* \n{{ $json.errorChunk }}\n\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        360,
+        -20
+      ],
+      "id": "4bf5e3c3-1423-4659-b972-ea20ad8bf1e7",
+      "name": "Telegram",
+      "webhookId": "6460b0ee-9f89-4b1a-9a2e-059c405e2ef7",
+      "credentials": {
+        "telegramApi": {
+          "id": "8w3Y1IrJsMn7NWMW",
+          "name": "Roy.AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const maxLength = 3800;\nconst error = $json.error || '';\nconst flow = $json.flow || '';\nconst node = $json.node || '';\nconst timestamp = $json.timestamp || new Date().toISOString();\n\nlet chunks = [];\nfor (let i = 0; i < error.length; i += maxLength) {\n  const part = error.slice(i, i + maxLength);\n  chunks.push({\n    json: {\n      flow,\n      node,\n      timestamp,\n      errorChunk: part,\n      chunkIndex: i / maxLength + 1,\n      chunkTotal: Math.ceil(error.length / maxLength),\n    }\n  });\n}\n\nreturn chunks;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -20,
+        0
+      ],
+      "id": "6419dac6-b42d-4642-baf0-d04fba4d880f",
+      "name": "Code"
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f023581cfe87a86662c56547e226a5e6af3cc08c9309e7f939d6919100849b9c"
+  }
+}

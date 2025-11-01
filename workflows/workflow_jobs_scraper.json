@@ -1,0 +1,2033 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_vooruitindrenthe.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        -60
+      ],
+      "id": "ddda4332-d1a4-4615-9412-774a21e92a0f",
+      "name": "Scrape VooruitInDrenthe",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        -60
+      ],
+      "id": "c0c2b985-21a0-4737-99da-fe142fd5f5ad",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_ons.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        280,
+        -80
+      ],
+      "id": "4c2c3a20-d6ba-4ed9-9cfa-87360448673c",
+      "name": "Scrape ONS",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_mvr.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        740,
+        -100
+      ],
+      "id": "9caea607-afee-4675-bb3d-94f2a07a173d",
+      "name": "Scrape MvR",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_werkenvoornl.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        -120
+      ],
+      "id": "2c41b71a-f11a-4ade-8f7a-434265a0e1f6",
+      "name": "Scrape Werken voor NL",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_dalfsen.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        -140
+      ],
+      "id": "17b8c55b-e51a-4adc-8057-01a9a604549f",
+      "name": "Scrape Dalfsen",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_kampen.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        2180,
+        -160
+      ],
+      "id": "88fc85f2-fa30-4bd0-9b0c-e4d6c8d3581a",
+      "name": "Scrape Kampen",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_hardenberg.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        2680,
+        -180
+      ],
+      "id": "766b7d6d-cb5c-434d-ae10-47efcae9f7f2",
+      "name": "Scrape Hardenberg",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_steenwijkerland.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3200,
+        -200
+      ],
+      "id": "1c52ace7-35e1-4606-af7c-31fa32f2acf0",
+      "name": "Scrape Steenwijkerland",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_zwartewaterland.py\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3720,
+        -200
+      ],
+      "id": "2229ff38-8af4-4fd8-aa27-ca98223b9451",
+      "name": "Scrape Zwartewaterland",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_werkenvoorgroningen.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        4240,
+        -200
+      ],
+      "id": "4360604e-2151-422d-b30f-26567d300c1b",
+      "name": "Scrape Werken voor Groningen",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_zwolle.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        4860,
+        -200
+      ],
+      "id": "5a190abb-2026-4dcb-b4a1-9ffdecdeb30e",
+      "name": "Scrape Zwolle",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "node": "Vooruitindrenthe",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        60,
+        160
+      ],
+      "id": "86d81127-8317-400a-8035-88eb5359a3e5",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "node": "ONS",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        120
+      ],
+      "id": "4a7c81c3-9d52-4916-acc6-8fa9de43b4a3",
+      "name": "Execute Workflow1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "node": "MvR",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1000,
+        140
+      ],
+      "id": "68ee4cad-9bd8-4812-bea5-93032de19a8f",
+      "name": "Execute Workflow2"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "node": "Werken voor Nederland",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1400,
+        160
+      ],
+      "id": "7da56674-5351-408f-b5ee-bb99458d77dd",
+      "name": "Execute Workflow3"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "node": "Dalfsen",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1920,
+        160
+      ],
+      "id": "7a0683d7-076a-4071-8d05-921cbf8351c9",
+      "name": "Execute Workflow4"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Kampen"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2420,
+        120
+      ],
+      "id": "e1052cfa-093d-4da8-88cd-5ebd7191be1c",
+      "name": "Execute Workflow5"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Hardenberg"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2920,
+        120
+      ],
+      "id": "e58c1743-11ab-46d4-81ed-45b6e79ec82e",
+      "name": "Execute Workflow6"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Steenwijkerland"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        3460,
+        140
+      ],
+      "id": "ea482ba0-1bc4-431e-bc4a-929674372362",
+      "name": "Execute Workflow7"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Zwartewaterland"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        3980,
+        80
+      ],
+      "id": "ef164497-90f3-48e2-9e3f-64e09d1aede0",
+      "name": "Execute Workflow8"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Werken voor Groningen"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        4480,
+        80
+      ],
+      "id": "e09f57c1-2d98-4895-bc97-17a62e6e408c",
+      "name": "Execute Workflow9"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Zwolle"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5100,
+        -20
+      ],
+      "id": "c8c5776e-de5f-47ba-9ade-26d9cb9618e6",
+      "name": "Execute Workflow10"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Lelystad"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5500,
+        0
+      ],
+      "id": "62befc02-5432-4075-be3c-400c9ffdb03d",
+      "name": "Execute Workflow11"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_lelystad.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        5300,
+        -200
+      ],
+      "id": "c484462a-634d-4c4d-891b-7fcc666cd87d",
+      "name": "Scrape Lelystad",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Alliander"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        6280,
+        -40
+      ],
+      "id": "4c2c4620-577e-48c6-b28d-445313190c1b",
+      "name": "Execute Workflow12"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_alliander.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        6040,
+        -220
+      ],
+      "id": "dcadee33-a920-4f10-9be0-1a07b08c43ae",
+      "name": "Scrape Alliander",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Ommen"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        6740,
+        -40
+      ],
+      "id": "66f6cd0d-3782-47f7-9c04-28935afca15f",
+      "name": "Execute Workflow13"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_ommen.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        6500,
+        -220
+      ],
+      "id": "e8bc0766-ec8d-470b-8352-675002aa0dc7",
+      "name": "Scrape Ommen",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Epe"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        7200,
+        -20
+      ],
+      "id": "cc9f50ca-2ea9-4089-921f-749ee6853b83",
+      "name": "Execute Workflow14"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_epe.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        6960,
+        -200
+      ],
+      "id": "309c40e8-311c-46da-abc8-a11dd5ede72a",
+      "name": "Scrape epe",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Werken in Friesland"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        7660,
+        -20
+      ],
+      "id": "5e536fa3-2683-4b2a-a636-43b3c964d62a",
+      "name": "Execute Workflow15"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_werkeninfriesland.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        7420,
+        -200
+      ],
+      "id": "6a1ea6fc-6da8-4376-b47e-3a54348a6bac",
+      "name": "Scrape werken in Friesland",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Hattem"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        8160,
+        -40
+      ],
+      "id": "7850cd5c-0869-4c2e-b122-88233b6c3dd6",
+      "name": "Execute Workflow16"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_hattem.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        7920,
+        -220
+      ],
+      "id": "9a9dc4a4-30e3-4b1a-a912-63b5fb645082",
+      "name": "Scrape Hattem",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "HqoM5OoSOKjTevUV",
+          "mode": "list",
+          "cachedResultName": "Error messages"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "error": "={{ $json.error }}",
+            "flow": "Scrapers",
+            "timestamp": "={{ new Date().toISOString() }}",
+            "node": "Werken in Gelderland"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "flow",
+              "displayName": "flow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "node",
+              "displayName": "node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "error",
+              "displayName": "error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        8660,
+        0
+      ],
+      "id": "bcd47f56-4461-48a5-b908-4cfefab24a77",
+      "name": "Execute Workflow17"
+    },
+    {
+      "parameters": {
+        "command": "ssh $SCRAPER_SSH_USER@$SCRAPER_HOST -C \"$PYTHON_ENV $SCRAPER_DIR/scraper_werkeningelderland.py \""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        8420,
+        -180
+      ],
+      "id": "7db58662-646d-4f3a-b2b0-442136a17890",
+      "name": "Scrape Werken in Gelderland",
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "connections": {
+    "Scrape VooruitInDrenthe": {
+      "main": [
+        [
+          {
+            "node": "Scrape ONS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Scrape VooruitInDrenthe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape ONS": {
+      "main": [
+        [
+          {
+            "node": "Scrape MvR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape MvR": {
+      "main": [
+        [
+          {
+            "node": "Scrape Werken voor NL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Werken voor NL": {
+      "main": [
+        [
+          {
+            "node": "Scrape Dalfsen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Dalfsen": {
+      "main": [
+        [
+          {
+            "node": "Scrape Kampen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Kampen": {
+      "main": [
+        [
+          {
+            "node": "Scrape Hardenberg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Hardenberg": {
+      "main": [
+        [
+          {
+            "node": "Scrape Steenwijkerland",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Steenwijkerland": {
+      "main": [
+        [
+          {
+            "node": "Scrape Zwartewaterland",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Zwartewaterland": {
+      "main": [
+        [
+          {
+            "node": "Scrape Werken voor Groningen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Werken voor Groningen": {
+      "main": [
+        [
+          {
+            "node": "Scrape Zwolle",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Zwolle": {
+      "main": [
+        [
+          {
+            "node": "Scrape Lelystad",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Scrape ONS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow1": {
+      "main": [
+        [
+          {
+            "node": "Scrape MvR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow2": {
+      "main": [
+        [
+          {
+            "node": "Scrape Werken voor NL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow3": {
+      "main": [
+        [
+          {
+            "node": "Scrape Dalfsen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow4": {
+      "main": [
+        [
+          {
+            "node": "Scrape Kampen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow5": {
+      "main": [
+        [
+          {
+            "node": "Scrape Hardenberg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow6": {
+      "main": [
+        [
+          {
+            "node": "Scrape Steenwijkerland",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow7": {
+      "main": [
+        [
+          {
+            "node": "Scrape Zwartewaterland",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow8": {
+      "main": [
+        [
+          {
+            "node": "Scrape Werken voor Groningen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow9": {
+      "main": [
+        [
+          {
+            "node": "Scrape Zwolle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow10": {
+      "main": [
+        [
+          {
+            "node": "Scrape Lelystad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow11": {
+      "main": [
+        [
+          {
+            "node": "Scrape Alliander",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Lelystad": {
+      "main": [
+        [
+          {
+            "node": "Scrape Alliander",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow12": {
+      "main": [
+        [
+          {
+            "node": "Scrape Ommen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Alliander": {
+      "main": [
+        [
+          {
+            "node": "Scrape Ommen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow13": {
+      "main": [
+        [
+          {
+            "node": "Scrape epe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Ommen": {
+      "main": [
+        [
+          {
+            "node": "Scrape epe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow13",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow14": {
+      "main": [
+        [
+          {
+            "node": "Scrape werken in Friesland",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape epe": {
+      "main": [
+        [
+          {
+            "node": "Scrape werken in Friesland",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow14",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow15": {
+      "main": [
+        [
+          {
+            "node": "Scrape Hattem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape werken in Friesland": {
+      "main": [
+        [
+          {
+            "node": "Scrape Hattem",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow16": {
+      "main": [
+        [
+          {
+            "node": "Scrape Werken in Gelderland",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Hattem": {
+      "main": [
+        [
+          {
+            "node": "Scrape Werken in Gelderland",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow16",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Werken in Gelderland": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Execute Workflow17",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "f023581cfe87a86662c56547e226a5e6af3cc08c9309e7f939d6919100849b9c"
+  }
+}

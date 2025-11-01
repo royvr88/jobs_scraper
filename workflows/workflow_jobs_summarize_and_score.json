@@ -1,0 +1,1017 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        60,
+        -80
+      ],
+      "id": "a660a8c6-6046-4f70-936d-897467e1b3eb",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "const parsed = JSON.parse($input.first().json.response.text);\nfunction toISODate(v) {\n  if (v == null || v === '') return null;\n\n  if (typeof v === 'number') {\n    const ms = v > 1e12 ? v : v * 1000;\n    return new Date(ms).toISOString().slice(0,10);\n  }\n  if (typeof v === 'string') {\n    const s = v.trim();\n    let m = s.match(/^(\\d{4})[/-](\\d{2})[/-](\\d{2})$/); // YYYY-MM-DD/YY\n    if (m) return `${m[1]}-${m[2]}-${m[3]}`;\n    m = s.match(/^(\\d{2})-(\\d{2})-(\\d{4})$/); // DD-MM-YYYY\n    if (m) return `${m[3]}-${m[2]}-${m[1]}`;\n    const d = new Date(s);\n    if (!isNaN(d)) return d.toISOString().slice(0,10);\n    return null;\n  }\n  if (v instanceof Date) return v.toISOString().slice(0,10);\n  return null;\n}\nreturn {job_id: $('Loop Over Items1').first().json.id, score: parsed.score, summary: parsed.summary,flags: parsed.flags, verdict: parsed.verdict, payment: parsed.payment, job_text_summary: parsed.job_text_summary, enddate: toISODate(parsed.enddate)};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1692,
+        -680
+      ],
+      "id": "6b3cc0f8-b257-471d-b280-5f3ddd0cea70",
+      "name": "Code",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -600,
+        -430
+      ],
+      "id": "24397a1e-e4e5-406c-85a6-8e04bf7e83fe",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.description }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Je bent een professionele vacaturesamenvatter. Je taak is om volledige vacatureteksten te lezen en samen te vatten in helder, beknopt Nederlands (max. 300 woorden).\nDe samenvatting moet uitsluitend bevatten wat expliciet vermeld is in de vacature:\n-De belangrijkste taken en verantwoordelijkheden\n-Het type werk: inhoudelijk, operationeel, beleidsmatig, technisch, etc.\n-De sector of werkgever (indien genoemd)\n-Of het een kantoorfunctie betreft of een uitvoerende functie\n-Of thuiswerken mogelijk is (indien vermeld)\n-Het salaris per maand (indien vermeld)\n-Datum tot wanneer gereageerd kan worden\nBelangrijk:\n-Géén vage of algemene formuleringen\n-Géén interpretaties of invulling van ontbrekende informatie\n-Géén opsommingen\n-Géén scores of oordelen\n-Géén inleiding of afsluiting\nLever alleen de tekst van de samenvatting aan, exact zoals gevraagd."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        280,
+        -105
+      ],
+      "id": "a041e24c-fed8-4720-b340-cc66315b0bdc",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1900,
+        -340
+      ],
+      "id": "98ced5d4-5b21-4e82-9c24-d5d34636099b",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cdda7fa6-b2cc-4d4e-852d-9ad9d81e70ac",
+              "leftValue": "={{ ($items().filter(i => Object.keys(i.json).length > 0).length > 0).toBoolean() }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -160,
+        -430
+      ],
+      "id": "ffa33259-b0f2-4066-aa66-075d7c0c7547",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -20
+      ],
+      "id": "93b2c6ef-f4b7-42c0-b697-c0455ebcd3b7",
+      "name": "Mistral-small",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "802cas2OHa9aeWJJ",
+          "name": "Mistral Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "jobs_scraped",
+          "mode": "list",
+          "cachedResultName": "jobs_scraped"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "summary",
+              "condition": "IS NULL"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -380,
+        -430
+      ],
+      "id": "7fb473a6-8db7-49ce-99b3-3cc049624b85",
+      "name": "Postgres",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "mDYJkuqVCTvIuF3H",
+          "name": "localhost jobs"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "jobs_scraped",
+          "mode": "list",
+          "cachedResultName": "jobs_scraped"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_active": false,
+            "id": "={{ $('Loop Over Items').item.json.id }}",
+            "summary": "={{ $json.response.text }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "scraped_at",
+              "displayName": "scraped_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "job_title",
+              "displayName": "job_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "employer",
+              "displayName": "employer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "job_url",
+              "displayName": "job_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        656,
+        45
+      ],
+      "id": "8db390cb-0fd2-44ad-be59-08512e5ab64e",
+      "name": "Postgres1",
+      "credentials": {
+        "postgres": {
+          "id": "mDYJkuqVCTvIuF3H",
+          "name": "localhost jobs"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "jobs_scraped",
+          "mode": "list",
+          "cachedResultName": "jobs_scraped"
+        },
+        "returnAll": true,
+        "sort": {
+          "values": [
+            {
+              "column": "scraped_at",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        358,
+        -505
+      ],
+      "id": "5111a6ed-8245-43e5-8061-088a581ae375",
+      "name": "Scraped (full)",
+      "executeOnce": true,
+      "credentials": {
+        "postgres": {
+          "id": "mDYJkuqVCTvIuF3H",
+          "name": "localhost jobs"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "jobs_scored",
+          "mode": "list",
+          "cachedResultName": "jobs_scored"
+        },
+        "deleteCommand": "delete",
+        "where": {
+          "values": [
+            {
+              "column": "job_id",
+              "value": "={{ $json.job_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1912,
+        -680
+      ],
+      "id": "fca87650-0c23-4018-89c5-bda3d883eb4a",
+      "name": "Postgres2",
+      "credentials": {
+        "postgres": {
+          "id": "mDYJkuqVCTvIuF3H",
+          "name": "localhost jobs"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "jobs_scored",
+          "mode": "list",
+          "cachedResultName": "jobs_scored"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "job_id": "={{ $('Code').item.json.job_id }}",
+            "score": "={{ $('Code').item.json.score }}",
+            "summary": "={{ $('Code').item.json.summary }}",
+            "flags": "={{ $('Code').item.json.flags }}",
+            "verdict": "={{ $('Code').item.json.verdict }}",
+            "payment": "={{ $('Code').item.json.payment }}",
+            "job_text_summary": "={{ $('Code').item.json.job_text_summary }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "job_id",
+              "displayName": "job_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "scored_at",
+              "displayName": "scored_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "flags",
+              "displayName": "flags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "verdict",
+              "displayName": "verdict",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "payment",
+              "displayName": "payment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "job_text_summary",
+              "displayName": "job_text_summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2132,
+        -680
+      ],
+      "id": "92315839-4a87-4bf3-ba6d-3e0894f41d3a",
+      "name": "Postgres3",
+      "credentials": {
+        "postgres": {
+          "id": "mDYJkuqVCTvIuF3H",
+          "name": "localhost jobs"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini-2025-04-14",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini-2025-04-14"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        -40
+      ],
+      "id": "1b07a695-3ce6-4869-8687-258631d0ec15",
+      "name": "OpenAI GPT-5-mini",
+      "credentials": {
+        "openAiApi": {
+          "id": "K6AwQ3ljNVBRZMzE",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "jobs_scraped",
+          "mode": "list",
+          "cachedResultName": "jobs_scraped"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_active": false,
+            "id": "={{ $json.job_id }}",
+            "enddate": "={{ $('Code').item.json.enddate }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "scraped_at",
+              "displayName": "scraped_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "job_title",
+              "displayName": "job_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "employer",
+              "displayName": "employer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "job_url",
+              "displayName": "job_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "enddate",
+              "displayName": "enddate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2352,
+        -555
+      ],
+      "id": "8617955f-7018-4469-bbec-233086b14d7d",
+      "name": "Postgres6",
+      "credentials": {
+        "postgres": {
+          "id": "mDYJkuqVCTvIuF3H",
+          "name": "localhost jobs"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "jobs_scored",
+          "mode": "list",
+          "cachedResultName": "jobs_scored"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "score",
+              "condition": "IS NOT NULL"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        358,
+        -305
+      ],
+      "id": "75654652-49d9-4072-a6ec-0a3acea31c12",
+      "name": "Jobs scored",
+      "executeOnce": true,
+      "credentials": {
+        "postgres": {
+          "id": "mDYJkuqVCTvIuF3H",
+          "name": "localhost jobs"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        656,
+        -380
+      ],
+      "id": "9ba13f82-566c-46dd-86aa-2ce5d9aff180",
+      "name": "Merge",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "functionCode": "const scoredIds = new Set($items(\"Jobs scored (Roy)\").map(item => item.json.job_id));\n\nreturn $items(\"Scraped (full)\").filter(item => !scoredIds.has(item.json.id));\n"
+      },
+      "id": "19427c4e-f012-4030-88a7-0e54ba880260",
+      "name": "Filter Unscored Jobs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        876,
+        -380
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.summary }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "[USE YOUR OWN PROFILE HERE]"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1316,
+        -680
+      ],
+      "id": "6eb7db06-ea56-4537-b876-4bcc7f654de5",
+      "name": "Scoring"
+    }
+  ],
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Jobs scored",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Scraped (full)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Postgres2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Scraped (full)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Jobs scored",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral-small": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scraped (full)": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres2": {
+      "main": [
+        [
+          {
+            "node": "Postgres3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres3": {
+      "main": [
+        [
+          {
+            "node": "Postgres6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT-5-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Scoring",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Summarize",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres6": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Jobs scored": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Filter Unscored Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Unscored Jobs": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scoring": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f023581cfe87a86662c56547e226a5e6af3cc08c9309e7f939d6919100849b9c"
+  }
+}

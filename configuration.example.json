@@ -1,0 +1,9 @@
+{
+    "postgresUser": "user",
+    "postgresPassword": "password",
+    "postgresHost": "hostname_or_url",
+    "postgresPort": "portnumber",
+    "postgresDatabaseName": "Name",
+    "webdavPathForXml": "/some/Path",
+    "RSS_Hyperlink": "someHyperlink"
+}
